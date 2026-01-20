@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+@source "../../src";
+
 @theme {
   --font-inter: var(--font-inter);
   --font-cormorant: var(--font-cormorant);
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
 }
 
 :root {
