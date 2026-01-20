@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  // basePath: "/graciehyeeunna",
-  // assetPrefix: "/graciehyeeunna/",
-  trailingSlash: true, // 정적 배포 시 라우팅 문제 해결을 위해 추가
+  // 루트 도메인(https://graciehyeeunna.github.io)을 사용하므로 basePath가 필요 없습니다.
+  basePath: "",
+  assetPrefix: "",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
