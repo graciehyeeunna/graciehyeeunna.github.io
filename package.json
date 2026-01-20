@@ -1,9 +1,9 @@
 {
-  "name": "graciena-app",
+  "name": "graciehyeeunna",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://chaerin-kim.github.io/gracieNa/",
+  "homepage": "https://graciehyeeunna.github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
