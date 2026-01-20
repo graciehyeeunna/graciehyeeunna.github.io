@@ -1,12 +1,14 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
-@source "../../src";
+/* CSS 로딩 여부 확인용 */
+body {
+  border-top: 5px solid red !important;
+}
 
 @theme {
   --font-inter: var(--font-inter);
   --font-cormorant: var(--font-cormorant);
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
 }
 
 :root {
@@ -17,7 +19,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-  @apply font-inter;
+  margin: 0;
 }
 
 @layer utilities {
