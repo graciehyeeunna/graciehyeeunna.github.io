@@ -113,6 +113,54 @@ const ResumePage = () => {
           </div>
         </div>
       </Container>
+
+      {/* Zoomed Modal Overlay */}
+      {isZoomed && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 md:p-8 backdrop-blur-sm animate-fade-in"
+          onClick={() => setIsZoomed(false)}
+        >
+          <button
+            onClick={() => setIsZoomed(false)}
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-[110]"
+            aria-label="Close zoomed view"
+          >
+            <X className="w-8 h-8" strokeWidth={1.5} />
+          </button>
+
+          <div
+            className="relative h-full aspect-[1/1.414] bg-white shadow-2xl overflow-hidden flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {currentPage === 0 ? (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-gray-400 font-inter text-lg italic px-10 text-center">Resume Page 1 (Large Preview)</span>
+                {/* 
+              <Image 
+                src={ResumeImg1} 
+                alt="Resume Page 1 Full" 
+                fill
+                className="object-contain"
+                priority
+              /> 
+              */}
+              </div>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-gray-400 font-inter text-lg italic px-10 text-center">Resume Page 2 (Large Preview)</span>
+                {/* 
+              <Image 
+                src={ResumeImg2} 
+                alt="Resume Page 2 Full" 
+                fill
+                className="object-contain"
+              /> 
+              */}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };
