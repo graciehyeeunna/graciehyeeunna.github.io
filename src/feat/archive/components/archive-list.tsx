@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Star } from "lucide-react";
 import { IArchiveItem } from "@/feat/archive/constants/realdata";
 
 /**
@@ -51,21 +52,16 @@ export default function ArchiveList({ items, onItemClick }: IProps) {
                   <span className="text-sm md:text-base font-medium text-gray-800 group-hover:text-black transition-colors">
                     {item.title}
                   </span>
-                  
-                  {/* Badge */}
-                  {item.color && (
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider shrink-0 ${
-                        item.color === "yellow"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-green-100 text-green-700"
-                      }`}
-                    >
-                      {item.color}
+
+                  {/* Badge - 'star'인 경우에만 노출 (green은 정렬 순위용으로만 사용) */}
+                  {item.badge === "star" && (
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider shrink-0 bg-black text-white">
+                      <Star className="w-2.5 h-2.5 fill-white" />
+                      
                     </span>
                   )}
                 </div>
-                
+
                 {/* Venue & Room */}
                 {item.venue && (
                   <span className="text-[11px] text-gray-400 mt-0.5">

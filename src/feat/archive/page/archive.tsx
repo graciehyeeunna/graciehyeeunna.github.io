@@ -35,11 +35,11 @@ const ArchivePage = () => {
       items = category ? [...category.items] : [];
     }
 
-    // 우선순위 정렬: Yellow(0) > Green(1) > null(2)
+    // 우선순위 정렬: star(0) > Green(1) > null(2)
     return items.sort((a, b) => {
-      const priority = { yellow: 0, green: 1, null: 2 };
-      const aPriority = priority[a.color || "null"];
-      const bPriority = priority[b.color || "null"];
+      const priority = { star: 0, green: 1, null: 2 };
+      const aPriority = priority[a.badge || "null"];
+      const bPriority = priority[b.badge || "null"];
       return aPriority - bPriority;
     });
   }, [activeCategory]);
