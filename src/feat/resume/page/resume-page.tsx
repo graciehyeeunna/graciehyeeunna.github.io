@@ -25,12 +25,23 @@ const ResumePage = () => {
   return (
     <section className="w-full">
       <Container>
-        <div className="flex flex-col items-center max-w-4xl mx-auto space-y-10">
+        <div className="flex flex-col items-center mx-auto space-y-10">
           {/* Page Header */}
-          <div className="text-center animate-slide-up">
+          <div className="w-full relative flex items-center justify-center animate-slide-up">
             <h1 className="font-cormorant font-bold text-gray-900 text-[30px] leading-tight">
               Resume
             </h1>
+
+            <a
+              href="https://docs.google.com/document/d/1iRwJZToPGYATuPRKJul0h4LZGKXBO9PXOiSI8OlJHWY/edit?pli=1&tab=t.0#heading=h.3yeygrk6rlc7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute italic right-0 font-inter font-normal text-sm text-gray-400 hover:text-black transition-all flex items-center gap-0.5 group"
+              title="view Capstone Journal"
+            >
+              view Capstone Journal
+              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.5} />
+            </a>
           </div>
 
           {/* Resume Slider Section */}
