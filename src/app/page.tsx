@@ -34,7 +34,7 @@ const VIDEO_CONTENT: IVideoContent[] = [
     title: "Upsidedown Live Performance",
     videoUrl: "https://vimeo.com/1060116537",
     embedUrl: "https://player.vimeo.com/video/1060116537",
-    description: "Multidisciplinary performance combining original music, immersive visuals, and innovative technology to explore climate change and human connection through collaborative artistry.",
+    description: "Upside Down Universe reimagines artistic performance through innovation and collaboration. Combining original music, evocative visuals, and cutting-edge technology, the production explores the interconnectedness of humanity and the environment while addressing the pressing issue of climate change. Imagined by Berklee Music Business/Management student Ana Suligoj, the program features eight student-composed pieces performed by an orchestra under the direction of Joshua Tan. Visual and video elements, developed collaboratively with students from Emerson College, MassArt, and Berklee, enhance the multidisciplinary nature of the experience.\n\nWith guidance from Berklee faculty member Maria Finkelmeier, Upside Down Universe transforms the Berklee Performance Center into a fully-immersive environment, incorporating innovative layouts, projection surfaces, and audience engagement tools such as LED wristbands. Sponsored by the Music Business/Management Department, the production offers both an inspiring artistic experience and a platform for reflecting on creativity's role in shaping a more sustainable future.",
   },
   {
     id: "av-tech", 
@@ -182,14 +182,14 @@ export default function Home() {
             {/* Description */}
             {currentVideo?.description && (
               <div className="w-full max-w-2xl text-center px-4">
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                   {currentVideo.description}
                 </p>
               </div>
             )}
 
             {/* Side Link */}
-            <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 rotate-0 hidden lg:block">
+            <div className="absolute right-[-60px] top-[280px] -translate-y-1/2 rotate-0 hidden lg:block">
               <Link
                 href="/archive"
                 className="group flex items-center gap-2 text-sm text-gray-500 no-underline hover:text-gray-900 transition-colors italic"
