@@ -19,6 +19,7 @@ interface IVideoContent {
   videoUrl: string;
   embedUrl: string;
   thumbnail?: string;
+  description?: string;
 }
 
 const ROLES: IRoleInfo[] = [
@@ -31,8 +32,9 @@ const VIDEO_CONTENT: IVideoContent[] = [
   {
     id: "live-sound",
     title: "Upsidedown Live Performance",
-    videoUrl: "https://rotating-changes-577636.framer.app/article/clive-willow",
-    embedUrl: "https://rotating-changes-577636.framer.app/article/clive-willow",
+    videoUrl: "https://vimeo.com/1060116537",
+    embedUrl: "https://player.vimeo.com/video/1060116537",
+    description: "Multidisciplinary performance combining original music, immersive visuals, and innovative technology to explore climate change and human connection through collaborative artistry.",
   },
   {
     id: "av-tech", 
@@ -176,6 +178,15 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Description */}
+            {currentVideo?.description && (
+              <div className="w-full max-w-2xl text-center px-4">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {currentVideo.description}
+                </p>
+              </div>
+            )}
 
             {/* Side Link */}
             <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 rotate-0 hidden lg:block">

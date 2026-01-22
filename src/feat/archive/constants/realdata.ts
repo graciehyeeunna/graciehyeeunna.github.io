@@ -34,6 +34,23 @@ export const ARCHIVE_DATA: IArchiveData = {
       categoryName: 'Front of House (FOH) Credit',
       items: [
         {
+          id: 'foh_2024_12_04_160caf',
+          date: '2024-12-04',
+          venue: '160Caf',
+          room: null,
+          role: 'FOH',
+          badge: 'star',
+          title: 'Betty Hwang: Letters',
+          description: null,
+          links: [
+            'https://www.berklee.edu/events/betty-hwang-letters',
+            'https://vimeo.com/showcase/jacksonbrownestage?video=1036060657',
+          ],
+          notes: null,
+          rawText:
+            '12/4 160Caf 8pm-12am (FOH) - Green | Wednesday / December 4, 2024 / 10:00 p.m.',
+        },
+        {
           id: 'foh_2024_11_25_160caf',
           date: '2024-11-25',
           venue: '160Caf',
@@ -94,23 +111,6 @@ export const ARCHIVE_DATA: IArchiveData = {
           notes: null,
           rawText:
             '12/3 921 2:30-5:30pm (FOH) | Tuesday / December 3, 2024 / 3:30 p.m.',
-        },
-        {
-          id: 'foh_2024_12_04_160caf',
-          date: '2024-12-04',
-          venue: '160Caf',
-          room: null,
-          role: 'FOH',
-          badge: 'green',
-          title: 'Betty Hwang: Letters',
-          description: null,
-          links: [
-            'https://www.berklee.edu/events/betty-hwang-letters',
-            'https://vimeo.com/showcase/jacksonbrownestage?video=1036060657',
-          ],
-          notes: null,
-          rawText:
-            '12/4 160Caf 8pm-12am (FOH) - Green | Wednesday / December 4, 2024 / 10:00 p.m.',
         },
         {
           id: 'foh_2024_12_05_1140_1w_directed_study',

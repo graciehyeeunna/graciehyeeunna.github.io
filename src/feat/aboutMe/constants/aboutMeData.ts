@@ -1,6 +1,7 @@
 export interface IAboutMeItem {
   id: string;
-  imageSrc: string;
+  imageSrc?: string;
+  videoUrl?: string;
   title: string;
   description: string[];
 }
@@ -18,7 +19,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "reflection",
-    imageSrc: "/images/home/about-2.webp",
+    videoUrl: "https://www.youtube.com/watch?v=s0sWmK7SYnI",
     title: "REFLECTION & GROWTH",
     description: [
       "Outside of work, I enjoy quietly reviewing live recordings and taking notes on what could be improved.",
