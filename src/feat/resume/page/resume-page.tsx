@@ -71,12 +71,12 @@ const ResumePage = () => {
   return (
     <section className="w-full">
       <Container>
-        <div className="flex flex-col items-center mx-auto space-y-10">
+        <div className="flex flex-col items-center mx-auto">
           {/* Page Header */}
           <div className="w-full relative flex items-center justify-center animate-slide-up">
-            <h1 className="font-cormorant font-bold text-gray-900 text-[30px] leading-tight">
+            {/* <h1 className="font-cormorant font-bold text-gray-900 text-[30px] leading-tight">
               Resume & Certificate
-            </h1>
+            </h1> */}
 
             {/* <a
               href="https://docs.google.com/document/d/1iRwJZToPGYATuPRKJul0h4LZGKXBO9PXOiSI8OlJHWY/edit?pli=1&tab=t.0#heading=h.3yeygrk6rlc7"
