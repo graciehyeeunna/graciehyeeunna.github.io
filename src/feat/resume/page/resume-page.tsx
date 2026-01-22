@@ -1,26 +1,72 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { Download, ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
-import { useState } from "react";
+import { Download, ChevronRight, Maximize2, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import ResumeImg from "@/assets/images/Resume.jpg";
+import CertImg from "@/assets/images/Cert.jpg";
 
 /**
  * ResumePage 컴포넌트
- * 이력서를 이미지 또는 PDF 형식으로 보여주는 페이지입니다.
- * 2장의 페이지를 슬라이드 형태로 제공하며, 크게 보기 기능을 포함합니다.
+ * 이력서와 자격증을 나란히 양문형으로 보여주는 페이지입니다.
+ * 2개의 이미지를 동시에 표시하며, 각각 크게 보기 기능을 포함합니다.
  */
 const ResumePage = () => {
-  const [currentPage, setCurrentPage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
-  const totalPages = 2;
+  const [zoomedImage, setZoomedImage] = useState<{ src: any; alt: string; title: string } | null>(null);
 
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev));
+  const images = [
+    { src: ResumeImg, alt: "Resume", title: "Resume" },
+    { src: CertImg, alt: "Certificate", title: "Certificate" }
+  ];
+
+  const handleDownload = async (imageData: { src: any; title: string }) => {
+    try {
+      // For Next.js static imports, we need to get the src property
+      const imageSrc = typeof imageData.src === 'string' ? imageData.src : imageData.src.src;
+      const response = await fetch(imageSrc);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${imageData.title.toLowerCase()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up the object URL
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+    }
   };
 
-  const handleNextPage = () => {
-    setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : prev));
+  const handleZoom = (imageData: { src: any; alt: string; title: string }) => {
+    setZoomedImage(imageData);
+    setIsZoomed(true);
   };
+
+  // Handle keyboard events for zoomed modal
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isZoomed && event.key === 'Escape') {
+        setIsZoomed(false);
+      }
+    };
+
+    if (isZoomed) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isZoomed]);
 
   return (
     <section className="w-full">
@@ -29,10 +75,10 @@ const ResumePage = () => {
           {/* Page Header */}
           <div className="w-full relative flex items-center justify-center animate-slide-up">
             <h1 className="font-cormorant font-bold text-gray-900 text-[30px] leading-tight">
-              Resume
+              Resume & Certificate
             </h1>
 
-            <a
+            {/* <a
               href="https://docs.google.com/document/d/1iRwJZToPGYATuPRKJul0h4LZGKXBO9PXOiSI8OlJHWY/edit?pli=1&tab=t.0#heading=h.3yeygrk6rlc7"
               target="_blank"
               rel="noopener noreferrer"
@@ -41,75 +87,98 @@ const ResumePage = () => {
             >
               view Capstone Journal
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.5} />
-            </a>
+            </a> */}
           </div>
 
-          {/* Resume Slider Section */}
-          <div className="w-full max-w-fit mx-auto flex flex-col gap-4 animate-slide-up relative" style={{ animationDelay: "0.1s" }}>
+          {/* Resume & Certificate Section */}
+          <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+            
+            {/* Documents Container */}
+            <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
+              
+              {/* Resume Section */}
+              <div className="flex flex-col gap-4 flex-1 max-w-lg">
+                {/* Resume Header & Controls */}
+                <div className="flex items-center justify-between">
+                  <h2 className="font-cormorant font-semibold text-gray-800 text-xl">Resume</h2>
+                  <div className="flex items-center gap-4 text-xs font-inter text-gray-400">
+                    <button
+                      onClick={() => handleZoom(images[0])}
+                      className="flex items-center gap-1.5 cursor-pointer hover:text-black transition-colors"
+                      title="View Larger"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <span>View Larger</span>
+                    </button>
+                    <button
+                      onClick={() => handleDownload(images[0])}
+                      className="flex items-center gap-1.5 hover:text-black transition-colors cursor-pointer"
+                      title="Download Resume"
+                    >
+                      <Download className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <span>Download</span>
+                    </button>
+                  </div>
+                </div>
 
-            {/* Toolbar: Page Indicator, Zoom, Download */}
-            <div className="flex items-center justify-between text-xs font-inter text-gray-400 px-1">
-              <span>{currentPage + 1} / {totalPages}</span>
-              <div className="flex items-center gap-5">
-                <button
-                  onClick={() => setIsZoomed(true)}
-                  className="flex items-center gap-1.5 cursor-pointer hover:text-black transition-colors"
-                  title="View Larger"
-                >
-                  <Maximize2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                  <span>View Larger</span>
-                </button>
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="flex items-center gap-1.5 hover:text-black transition-colors"
-                  title="Download PDF"
-                >
-                  <Download className="w-3.5 h-3.5" strokeWidth={1.5} />
-                  <span>Download</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Resume Page Container with Navigation */}
-            <div className="relative">
-              {/* Navigation Buttons - Always Visible */}
-              <div className="absolute inset-y-0 -left-4 -right-4 md:-left-16 md:-right-16 flex items-center justify-between z-10 pointer-events-none">
-                <button
-                  onClick={handlePrevPage}
-                  disabled={currentPage === 0}
-                  className={`p-2 rounded-full bg-white/80 shadow-sm border border-gray-100 transition-all pointer-events-auto
-                    ${currentPage === 0 ? "opacity-30 cursor-not-allowed" : "opacity-100 hover:bg-gray-50"}`}
-                  aria-label="Previous Page"
-                >
-                  <ChevronLeft className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
-                </button>
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage === totalPages - 1}
-                  className={`p-2 rounded-full bg-white/80 shadow-sm border border-gray-100 transition-all pointer-events-auto
-                    ${currentPage === totalPages - 1 ? "opacity-30 cursor-not-allowed" : "opacity-100 hover:bg-gray-50"}`}
-                  aria-label="Next Page"
-                >
-                  <ChevronRight className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
-                </button>
-              </div>
-
-              {/* Page Content */}
-              <div className="h-[660px] aspect-[1/1.414] bg-gray-50 border border-gray-100 rounded-sm shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300">
-                <div key={currentPage} className="w-full h-full flex items-center justify-center fade-in">
-                  <span className="text-gray-400 font-inter text-sm italic">
-                    Resume Page {currentPage + 1} (Placeholder)
-                  </span>
+                {/* Resume Image */}
+                <div className="h-[660px] aspect-[1/1.414] bg-gray-50 border border-gray-100 rounded-sm shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 relative cursor-pointer hover:shadow-md"
+                     onClick={() => handleZoom(images[0])}>
+                  <Image 
+                    src={images[0].src} 
+                    alt={images[0].alt}
+                    fill
+                    className="object-contain"
+                    priority
+                  />
                 </div>
               </div>
+
+              {/* Certificate Section */}
+              <div className="flex flex-col gap-4 flex-1 max-w-lg">
+                {/* Certificate Header & Controls */}
+                <div className="flex items-center justify-between">
+                  <h2 className="font-cormorant font-semibold text-gray-800 text-xl">Certificate</h2>
+                  <div className="flex items-center gap-4 text-xs font-inter text-gray-400">
+                    <button
+                      onClick={() => handleZoom(images[1])}
+                      className="flex items-center gap-1.5 cursor-pointer hover:text-black transition-colors"
+                      title="View Larger"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <span>View Larger</span>
+                    </button>
+                    <button
+                      onClick={() => handleDownload(images[1])}
+                      className="flex items-center gap-1.5 hover:text-black transition-colors cursor-pointer"
+                      title="Download Certificate"
+                    >
+                      <Download className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <span>Download</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Certificate Image */}
+                <div className="h-[660px] aspect-[1/1.414] bg-gray-50 border border-gray-100 rounded-sm shadow-sm flex items-center justify-center overflow-hidden transition-all duration-300 relative cursor-pointer hover:shadow-md"
+                     onClick={() => handleZoom(images[1])}>
+                  <Image 
+                    src={images[1].src} 
+                    alt={images[1].alt}
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </Container>
 
       {/* Zoomed Modal Overlay */}
-      {isZoomed && (
+      {isZoomed && zoomedImage && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 md:p-10 backdrop-blur-sm animate-fade-in cursor-zoom-out"
           onClick={() => setIsZoomed(false)}
@@ -128,20 +197,13 @@ const ResumePage = () => {
             className="relative h-full aspect-[1/1.414] bg-white shadow-2xl overflow-hidden flex items-center justify-center cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
-            <div key={currentPage} className="w-full h-full flex items-center justify-center fade-in">
-              <span className="text-gray-400 font-inter text-lg italic px-10 text-center">
-                Resume Page {currentPage + 1} (Large Preview)
-              </span>
-              {/* 
-              <Image 
-                src={currentPage === 0 ? ResumeImg1 : ResumeImg2} 
-                alt={`Resume Page ${currentPage + 1} Full`}
-                fill
-                className="object-contain"
-                priority
-              /> 
-              */}
-            </div>
+            <Image 
+              src={zoomedImage.src} 
+              alt={`${zoomedImage.title} Full View`}
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
         </div>
       )}
