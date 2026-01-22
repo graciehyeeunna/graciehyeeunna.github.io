@@ -6,23 +6,68 @@ import AboutMe from "@/feat/aboutMe/page/aboutMe";
 import { useState } from "react";
 import SplashScreen from "@/feat/landing/components/splash-screen";
 
-type TRole = "live-sound" | "av-tech" | "mixing" | "recording";
+type TRole = "live-sound" | "av-tech" | "music-producer" | "engineer";
 
 interface IRoleInfo {
   id: TRole;
   label: string;
 }
 
+interface IVideoContent {
+  id: TRole;
+  title: string;
+  videoUrl: string;
+  embedUrl: string;
+  thumbnail?: string;
+}
+
 const ROLES: IRoleInfo[] = [
   { id: "live-sound", label: "Live Sound Engineer" },
   { id: "av-tech", label: "Audio-Visual Technician" },
-  { id: "mixing", label: "Mixing Engineer" },
-  { id: "recording", label: "Recording Engineer" },
+  { id: "music-producer", label: "Music Producer & Engineer" },
+];
+
+const VIDEO_CONTENT: IVideoContent[] = [
+  {
+    id: "live-sound",
+    title: "Upsidedown Live Performance",
+    videoUrl: "https://rotating-changes-577636.framer.app/article/clive-willow",
+    embedUrl: "https://rotating-changes-577636.framer.app/article/clive-willow",
+  },
+  {
+    id: "av-tech", 
+    title: "Lady Gaga Live Performance",
+    videoUrl: "https://vimeo.com/manage/videos/1156782343",
+    embedUrl: "https://player.vimeo.com/video/1156782343",
+  },
+  {
+    id: "music-producer",
+    title: "Moonchild - Recording & Mix",
+    videoUrl: "https://www.youtube.com/watch?v=pjiqxhwYpZ0",
+    embedUrl: "https://www.youtube.com/embed/pjiqxhwYpZ0",
+  },
 ];
 
 export default function Home() {
   const [activeRole, setActiveRole] = useState<TRole>("live-sound");
   const [showSplash, setShowSplash] = useState(true);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(false);
+
+  const currentVideo = VIDEO_CONTENT.find(video => video.id === activeRole);
+
+  const handleCardClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  const handleCardHover = (hovered: boolean) => {
+    setHoveredCard(hovered);
+  };
+
+  const handleRoleChange = (roleId: TRole) => {
+    setActiveRole(roleId);
+    setIsFlipped(false); // 역할 변경 시 카드를 앞면으로 리셋
+  };
 
   return (
     <>
@@ -36,7 +81,7 @@ export default function Home() {
               {ROLES.map((role) => (
                 <li
                   key={role.id}
-                  onClick={() => setActiveRole(role.id)}
+                  onClick={() => handleRoleChange(role.id)}
                   className={`transition-colors cursor-pointer italic ${activeRole === role.id
                     ? "text-gray-900 font-bold border-b-2 border-gray-900 pb-1"
                     : "hover:text-gray-600"
@@ -50,43 +95,86 @@ export default function Home() {
 
           {/* Main Visual Content */}
           <section className="relative w-full max-w-4xl flex flex-col items-center gap-16">
-            <div className="relative w-full aspect-[4/5] max-w-md bg-gray-50 flex items-center justify-center overflow-hidden rounded-sm transition-all duration-500">
-              {/* 탭 변경에 따른 콘텐츠 노출 영역 */}
-              <div className="text-gray-400 text-xs italic text-center px-10">
-                {activeRole === "live-sound" && (
-                  <div className="animate-in fade-in duration-700">
-                    <p>[ Live Sound Engineer Video/Image Area ]</p>
-                    <p className="text-[10px] opacity-70 mt-2">트롬본 연주 영상이나 이미지가 들어갈 공간입니다.</p>
+            <div 
+              className="relative w-full aspect-[4/5] max-w-md perspective-1000 cursor-pointer"
+              onClick={handleCardClick}
+              onMouseEnter={() => handleCardHover(true)}
+              onMouseLeave={() => handleCardHover(false)}
+            >
+              <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                {/* Front Side - Image/Placeholder */}
+                <div className="absolute inset-0 w-full h-full bg-gray-100 rounded-sm backface-hidden flex items-center justify-center overflow-hidden">
+                  <div className="text-center p-8">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-gray-300 rounded-full flex items-center justify-center">
+                      <span className="text-gray-500 text-2xl">🎵</span>
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-700 mb-2">
+                      {ROLES.find(role => role.id === activeRole)?.label}
+                    </h3>
+                    <p className="text-sm text-gray-500 italic">
+                      Click to see video
+                    </p>
+                    {hoveredCard && (
+                      <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300">
+                        <span className="text-white text-sm font-medium">Click to flip</span>
+                      </div>
+                    )}
                   </div>
-                )}
-                {activeRole === "av-tech" && (
-                  <div className="animate-in fade-in duration-700">
-                    <p>[ Audio-Visual Technician Content ]</p>
-                    <p className="text-[10px] opacity-70 mt-2">AV 테크니션 관련 영상/iframe 공간입니다.</p>
-                  </div>
-                )}
-                {activeRole === "mixing" && (
-                  <div className="animate-in fade-in duration-700">
-                    <p>[ Mixing Engineer Content ]</p>
-                  </div>
-                )}
-                {activeRole === "recording" && (
-                  <div className="animate-in fade-in duration-700">
-                    <p>[ Recording Engineer Content ]</p>
-                  </div>
-                )}
-              </div>
+                </div>
 
-              {/* 실제 비디오/iframe 삽입 예시 */}
-              {/* 
-            {activeRole === "live-sound" && (
-              <iframe 
-                src="https://www.youtube.com/embed/..." 
-                className="w-full h-full"
-                allowFullScreen
-              />
-            )}
-            */}
+                {/* Back Side - Video */}
+                <div className="absolute inset-0 w-full h-full bg-black rounded-sm backface-hidden rotate-y-180 overflow-hidden">
+                  {currentVideo && (
+                    <div className="relative w-full h-full">
+                      {/* Video Title */}
+                      <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/70 to-transparent p-4">
+                        <h3 className="text-white text-lg font-medium">{currentVideo.title}</h3>
+                      </div>
+                      
+                      {/* Video Content */}
+                      <div className="w-full h-full">
+                        {activeRole === "music-producer" && (
+                          <iframe
+                            src={currentVideo.embedUrl}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={currentVideo.title}
+                          />
+                        )}
+                        {activeRole === "av-tech" && (
+                          <iframe
+                            src={currentVideo.embedUrl}
+                            className="w-full h-full"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowFullScreen
+                            title={currentVideo.title}
+                          />
+                        )}
+                        {activeRole === "live-sound" && (
+                          <iframe
+                            src={currentVideo.embedUrl}
+                            className="w-full h-full"
+                            allowFullScreen
+                            title={currentVideo.title}
+                          />
+                        )}
+                      </div>
+
+                      {/* Close Button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsFlipped(false);
+                        }}
+                        className="absolute top-4 right-4 z-20 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Side Link */}
