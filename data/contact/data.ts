@@ -9,8 +9,8 @@ export type { IContactInfo, IPhoneNumber, ISocialLink } from "./type";
  */
 export const CONTACT_INFO: IContactInfo = {
   // 프로필 이미지 경로
-  profileImage: "/images/contact/icon.png",
-  name: "Gracie Na",
+  profileImage: "/images/contact/ContactPic.png",
+  name: "Gracie Hyeeun Na",
   title: "Sound Engineer",
   quote: "Let's create something beautiful together.",
   email: "gracie.hna@gmail.com",
