@@ -7,52 +7,7 @@ import { useState } from "react";
 import SplashScreen from "@/feat/landing/components/splash-screen";
 import Image from "next/image";
 import { getEmbedUrl } from "@/feat/archive/utils/video-utils";
-
-// Image paths as strings
-
-type TRole = "live-sound" | "av-tech" | "music-producer" | "engineer";
-
-interface IRoleInfo {
-  id: TRole;
-  label: string;
-}
-
-interface IVideoContent {
-  id: TRole;
-  title: string;
-  videoUrl: string;
-  thumbnail?: string;
-  description?: string;
-}
-
-const ROLES: IRoleInfo[] = [
-  { id: "live-sound", label: "Live Sound Engineer" },
-  { id: "av-tech", label: "Audio-Visual Technician" },
-  { id: "music-producer", label: "Music Producer & Engineer" },
-];
-
-// 혜은 : iam 의 카테고리별로 카드 이미지, 클릭시 노출되는 영상 및 카드 하단의 description(설명추가) 부분 데이터 가공 위치 입니다.
-const VIDEO_CONTENT: IVideoContent[] = [
-  {
-    id: "live-sound",
-    title: "Upsidedown Live Performance",
-    videoUrl: "https://vimeo.com/1060116537",
-    thumbnail: "/images/home/iam/live-sound/UpsidedownUniverse.png",
-    description: "Upside Down Universe reimagines artistic performance through innovation and collaboration. Combining original music, evocative visuals, and cutting-edge technology, the production explores the interconnectedness of humanity and the environment while addressing the pressing issue of climate change. Imagined by Berklee Music Business/Management student Ana Suligoj, the program features eight student-composed pieces performed by an orchestra under the direction of Joshua Tan. Visual and video elements, developed collaboratively with students from Emerson College, MassArt, and Berklee, enhance the multidisciplinary nature of the experience.\n\nWith guidance from Berklee faculty member Maria Finkelmeier, Upside Down Universe transforms the Berklee Performance Center into a fully-immersive environment, incorporating innovative layouts, projection surfaces, and audience engagement tools such as LED wristbands. Sponsored by the Music Business/Management Department, the production offers both an inspiring artistic experience and a platform for reflecting on creativity's role in shaping a more sustainable future.",
-  },
-  {
-    id: "av-tech", 
-    title: "Lady Gaga Live Performance",
-    videoUrl: "https://vimeo.com/manage/videos/1156782343",
-    thumbnail: "/images/home/iam/av-tech/ladygaga.jpg",
-  },
-  {
-    id: "music-producer",
-    title: "Moonchild - Recording & Mix",
-    videoUrl: "https://www.youtube.com/watch?v=pjiqxhwYpZ0",
-    thumbnail: "/images/home/iam/music-producer/Sleepwalk.jpg",
-  },
-];
+import { ROLE_DATA, type TRole } from "@/../data/home/data";
 
 export default function Home() {
   const [activeRole, setActiveRole] = useState<TRole>("live-sound");
@@ -60,8 +15,8 @@ export default function Home() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(false);
 
-  const currentVideo = VIDEO_CONTENT.find(video => video.id === activeRole);
-  const embedUrl = currentVideo ? getEmbedUrl([currentVideo.videoUrl]) : null;
+  const currentRole = ROLE_DATA.find(role => role.id === activeRole);
+  const embedUrl = currentRole ? getEmbedUrl([currentRole.videoUrl]) : null;
 
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
@@ -85,7 +40,7 @@ export default function Home() {
           <section className="w-full mb-10 md:mb-20">
             <ul className="flex flex-wrap justify-center items-center gap-4 md:gap-12 text-xs md:text-sm text-gray-400 font-medium list-none p-0 m-0">
               <li className="text-gray-900 italic">I'm a</li>
-              {ROLES.map((role) => (
+              {ROLE_DATA.map((role) => (
                 <li
                   key={role.id}
                   onClick={() => handleRoleChange(role.id)}
@@ -111,11 +66,11 @@ export default function Home() {
               <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                 {/* Front Side - Image/Placeholder */}
                 <div className="absolute inset-0 w-full h-full bg-gray-100 rounded-sm backface-hidden flex items-center justify-center overflow-hidden">
-                  {currentVideo?.thumbnail ? (
+                  {currentRole?.thumbnail ? (
                     <div className="relative w-full h-full">
                       <Image
-                        src={currentVideo.thumbnail}
-                        alt={currentVideo.title}
+                        src={currentRole.thumbnail}
+                        alt={currentRole.title}
                         fill
                         className="object-cover"
                       />
@@ -131,7 +86,7 @@ export default function Home() {
                         <span className="text-gray-500 text-2xl">🎵</span>
                       </div>
                       <h3 className="text-lg font-medium text-gray-700 mb-2">
-                        {ROLES.find(role => role.id === activeRole)?.label}
+                        {currentRole?.label}
                       </h3>
                       <p className="text-sm text-gray-500 italic">
                         Click to see video
@@ -147,11 +102,11 @@ export default function Home() {
 
                 {/* Back Side - Video */}
                 <div className="absolute inset-0 w-full h-full bg-black rounded-sm backface-hidden rotate-y-180 overflow-hidden">
-                  {currentVideo && (
+                  {currentRole && (
                     <div className="relative w-full h-full">
                       {/* Video Title */}
                       <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/70 to-transparent p-4">
-                        <h3 className="text-white text-lg font-medium">{currentVideo.title}</h3>
+                        <h3 className="text-white text-lg font-medium">{currentRole.title}</h3>
                       </div>
                       
                       {/* Video Content */}
@@ -162,7 +117,7 @@ export default function Home() {
                             className="w-full h-full"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                             allowFullScreen
-                            title={currentVideo.title}
+                            title={currentRole.title}
                           />
                         )}
                       </div>
@@ -184,10 +139,10 @@ export default function Home() {
             </div>
 
             {/* Description */}
-            {currentVideo?.description && (
+            {currentRole?.description && (
               <div className="w-full max-w-2xl text-center px-4">
                 <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                  {currentVideo.description}
+                  {currentRole.description}
                 </p>
               </div>
             )}
