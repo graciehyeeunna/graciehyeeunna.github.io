@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Container from '@/components/layout/container';
 import { ABOUT_ME_DATA } from '../constants/aboutMeData';
-import { getEmbedUrl } from '@/feat/archive/utils/video-utils';
+import { getEmbedUrl, getVideoThumbnail } from '@/feat/archive/utils/video-utils';
 
 const AboutMe = () => {
   const [selectedId, setSelectedId] = useState<string>(ABOUT_ME_DATA[0].id);
@@ -21,6 +22,7 @@ const AboutMe = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
           {ABOUT_ME_DATA.map((item) => {
             const embedUrl = item.videoUrl ? getEmbedUrl([item.videoUrl]) : null;
+            const thumbnailUrl = item.videoUrl ? getVideoThumbnail([item.videoUrl]) : null;
             const isSelected = selectedId === item.id;
 
             return (
@@ -31,7 +33,8 @@ const AboutMe = () => {
                   isSelected ? 'ring-2 ring-black ring-offset-4 opacity-100' : 'opacity-70 hover:opacity-100'
                 }`}
               >
-                {embedUrl ? (
+                {/* 선택된 비디오만 재생 */}
+                {isSelected && embedUrl ? (
                   <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
                     <iframe
                       src={`${embedUrl}?autoplay=1&muted=1&loop=1&background=1`}
@@ -49,6 +52,23 @@ const AboutMe = () => {
                     />
                     {/* 클릭 이벤트를 위한 투명 오버레이 */}
                     <div className="absolute inset-0 w-full h-full bg-transparent cursor-pointer" />
+                  </div>
+                ) : thumbnailUrl ? (
+                  /* 선택 안 된 비디오는 썸네일 표시 */
+                  <div className="absolute inset-0 w-full h-full bg-black">
+                    <Image
+                      src={thumbnailUrl}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                    {/* 재생 아이콘 오버레이 */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
+                        <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[14px] border-l-black border-b-[8px] border-b-transparent ml-1" />
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-400 bg-gray-200">
