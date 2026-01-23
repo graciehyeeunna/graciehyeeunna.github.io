@@ -75,7 +75,11 @@ export default function ArchiveList({ items, onItemClick }: IProps) {
               onClick={() => onItemClick(item)}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="group w-full flex flex-col md:flex-row items-stretch justify-between border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors px-4"
+              className="group w-full flex flex-col md:flex-row items-stretch justify-between border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors px-4 animate-fade-slide-down opacity-0"
+              style={{ 
+                animationDelay: `${index * 50}ms`,
+                animationFillMode: 'forwards'
+              }}
             >
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 w-full">
                 {/* Index Number */}
