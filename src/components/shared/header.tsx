@@ -44,7 +44,7 @@ const Header = ({ className = "" }: IHeaderProps) => {
         {/* Center: Name (Logo) - Left aligned on mobile, center on md */}
         <div className="flex justify-start md:justify-center">
           <Link href="/" className="text-lg md:text-xl font-bold italic tracking-tight text-gray-900 no-underline font-cormorant">
-            Hyeeun Gracie Na
+            Gracie Hyeeun Na
           </Link>
         </div>
 

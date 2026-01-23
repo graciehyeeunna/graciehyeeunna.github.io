@@ -60,7 +60,7 @@ export default function SplashScreen({ onComplete }: IProps) {
         className={`font-cormorant text-white text-2xl md:text-4xl font-light transition-opacity duration-1000 ease-in-out ${textVisible ? "opacity-100" : "opacity-0"
           }`}
       >
-        Hyeeun Gracie Na
+        Gracie Hyeeun Na
       </h1>
     </div>
   );

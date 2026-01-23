@@ -16,8 +16,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Hyeeun Gracie Na",
-  description: "Hyeeun Gracie Na - Portfolio",
+  title: "Gracie Hyeeun Na",
+  description: "Gracie Hyeeun Na - Portfolio",
 };
 
 export default function RootLayout({
