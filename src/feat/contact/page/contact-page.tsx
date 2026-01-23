@@ -1,9 +1,8 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { Mail, Instagram, MapPin, Phone, Check, Copy } from "lucide-react";
+import { Mail, MapPin, Phone, Check } from "lucide-react";
 import Image from "next/image";
-import ContactPic from "@/assets/images/ContactPic.png";
 import { useState } from "react";
 
 const ContactPage = () => {
@@ -27,12 +26,12 @@ const ContactPage = () => {
           {/* Profile Image */}
           <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border border-gray-100 shadow-sm bg-gray-50 flex items-center justify-center group">
             <Image
-              src={ContactPic}
+            // 혜은 : 아래 src 경로 변경하시면 이미지가 바뀝니다.
+              src="/images/contact/ContactPic.png"
               alt="Gracie Na"
               fill
               className="object-cover"
               priority
-              placeholder="blur" // 이미지 로딩 시 블러 효과 (선택사항)
             />
           </div>
 
@@ -92,7 +91,11 @@ const ContactPage = () => {
               rel="noopener noreferrer"
               className="group flex items-center justify-center gap-3 text-gray-500 hover:text-black transition-all w-full py-2 hover:bg-gray-50 rounded-lg"
             >
-              <Instagram className="w-4 h-4" strokeWidth={1.5} />
+              <svg className="w-4 h-4" strokeWidth={1.5} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
               <span className="font-inter text-sm tracking-wide">@hyeeuna</span>
             </a>
 

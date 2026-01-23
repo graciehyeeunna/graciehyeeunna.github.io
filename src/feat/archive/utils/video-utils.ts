@@ -12,6 +12,12 @@ export const getVideoId = (links: string[]) => {
   if (!videoLink) return { id: null, type: null };
 
   if (videoLink.includes("vimeo.com")) {
+    // vimeo.com/manage/videos/123456 형태 처리
+    if (videoLink.includes("/manage/videos/")) {
+      const videoId = videoLink.split("/manage/videos/")[1]?.split("?")[0];
+      return { id: videoId || null, type: "vimeo" };
+    }
+    // 일반적인 vimeo.com/123456 형태 처리
     const videoId = videoLink.split("video=")[1] || videoLink.split("/").pop();
     return { id: videoId?.split("?")[0] || null, type: "vimeo" };
   }
@@ -35,12 +41,13 @@ export const getVideoThumbnail = (links: string[]): string | null => {
   if (!id) return null;
 
   if (type === "vimeo") {
-    // vumbnail.com은 Vimeo 썸네일을 제공하는 공개 서비스입니다.
+    // Vimeo는 oembed API를 사용하거나 vumbnail 서비스 사용
     return `https://vumbnail.com/${id}.jpg`;
   }
 
   if (type === "youtube") {
-    return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    // YouTube 썸네일 - maxresdefault 시도 후 mqdefault로 폴백
+    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
   }
 
   return null;

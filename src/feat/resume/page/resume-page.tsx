@@ -1,12 +1,9 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { Download, ChevronRight, Maximize2, X } from "lucide-react";
+import { Download, Maximize2, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import ResumeImg from "@/assets/images/Resume.jpg";
-import CertImg from "@/assets/images/Cert.jpg";
-
 /**
  * ResumePage 컴포넌트
  * 이력서와 자격증을 나란히 양문형으로 보여주는 페이지입니다.
@@ -14,18 +11,17 @@ import CertImg from "@/assets/images/Cert.jpg";
  */
 const ResumePage = () => {
   const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomedImage, setZoomedImage] = useState<{ src: any; alt: string; title: string } | null>(null);
+  const [zoomedImage, setZoomedImage] = useState<{ src: string; alt: string; title: string } | null>(null);
 
+  // 혜은 : 각 이미지 경로를 아래에 수정해주면 됩니다.
   const images = [
-    { src: ResumeImg, alt: "Resume", title: "Resume" },
-    { src: CertImg, alt: "Certificate", title: "Certificate" }
+    { src: "/images/resume/Resume.jpg", alt: "Resume", title: "Resume" },
+    { src: "/images/resume/Cert.jpg", alt: "Certificate", title: "Certificate" }
   ];
 
-  const handleDownload = async (imageData: { src: any; title: string }) => {
+  const handleDownload = async (imageData: { src: string; title: string }) => {
     try {
-      // For Next.js static imports, we need to get the src property
-      const imageSrc = typeof imageData.src === 'string' ? imageData.src : imageData.src.src;
-      const response = await fetch(imageSrc);
+      const response = await fetch(imageData.src);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       
@@ -43,7 +39,7 @@ const ResumePage = () => {
     }
   };
 
-  const handleZoom = (imageData: { src: any; alt: string; title: string }) => {
+  const handleZoom = (imageData: { src: string; alt: string; title: string }) => {
     setZoomedImage(imageData);
     setIsZoomed(true);
   };

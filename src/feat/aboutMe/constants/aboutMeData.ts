@@ -9,7 +9,7 @@ export interface IAboutMeItem {
 export const ABOUT_ME_DATA: IAboutMeItem[] = [
   {
     id: "focus",
-    imageSrc: "/images/home/about-1.webp",
+    videoUrl: "https://vimeo.com/1157249297",
     title: "FOCUS & RESPONSIBILITY",
     description: [
       "I tend to stay calm and focused during shows, even under pressure.",
@@ -29,7 +29,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "collaboration",
-    imageSrc: "/images/home/about-3.webp",
+    videoUrl: "https://vimeo.com/1157084622",
     title: "COLLABORATION & COMMUNICATION",
     description: [
       "Successful productions are built on effective teamwork and clear communication.",

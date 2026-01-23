@@ -5,6 +5,10 @@ import Link from "next/link";
 import AboutMe from "@/feat/aboutMe/page/aboutMe";
 import { useState } from "react";
 import SplashScreen from "@/feat/landing/components/splash-screen";
+import Image from "next/image";
+import { getEmbedUrl } from "@/feat/archive/utils/video-utils";
+
+// Image paths as strings
 
 type TRole = "live-sound" | "av-tech" | "music-producer" | "engineer";
 
@@ -17,7 +21,6 @@ interface IVideoContent {
   id: TRole;
   title: string;
   videoUrl: string;
-  embedUrl: string;
   thumbnail?: string;
   description?: string;
 }
@@ -28,25 +31,26 @@ const ROLES: IRoleInfo[] = [
   { id: "music-producer", label: "Music Producer & Engineer" },
 ];
 
+// 혜은 : iam 의 카테고리별로 카드 이미지, 클릭시 노출되는 영상 및 카드 하단의 description(설명추가) 부분 데이터 가공 위치 입니다.
 const VIDEO_CONTENT: IVideoContent[] = [
   {
     id: "live-sound",
     title: "Upsidedown Live Performance",
     videoUrl: "https://vimeo.com/1060116537",
-    embedUrl: "https://player.vimeo.com/video/1060116537",
+    thumbnail: "/images/home/iam/live-sound/UpsidedownUniverse.png",
     description: "Upside Down Universe reimagines artistic performance through innovation and collaboration. Combining original music, evocative visuals, and cutting-edge technology, the production explores the interconnectedness of humanity and the environment while addressing the pressing issue of climate change. Imagined by Berklee Music Business/Management student Ana Suligoj, the program features eight student-composed pieces performed by an orchestra under the direction of Joshua Tan. Visual and video elements, developed collaboratively with students from Emerson College, MassArt, and Berklee, enhance the multidisciplinary nature of the experience.\n\nWith guidance from Berklee faculty member Maria Finkelmeier, Upside Down Universe transforms the Berklee Performance Center into a fully-immersive environment, incorporating innovative layouts, projection surfaces, and audience engagement tools such as LED wristbands. Sponsored by the Music Business/Management Department, the production offers both an inspiring artistic experience and a platform for reflecting on creativity's role in shaping a more sustainable future.",
   },
   {
     id: "av-tech", 
     title: "Lady Gaga Live Performance",
     videoUrl: "https://vimeo.com/manage/videos/1156782343",
-    embedUrl: "https://player.vimeo.com/video/1156782343",
+    thumbnail: "/images/home/iam/av-tech/ladygaga.jpg",
   },
   {
     id: "music-producer",
     title: "Moonchild - Recording & Mix",
     videoUrl: "https://www.youtube.com/watch?v=pjiqxhwYpZ0",
-    embedUrl: "https://www.youtube.com/embed/pjiqxhwYpZ0",
+    thumbnail: "/images/home/iam/music-producer/Sleepwalk.jpg",
   },
 ];
 
@@ -57,6 +61,7 @@ export default function Home() {
   const [hoveredCard, setHoveredCard] = useState(false);
 
   const currentVideo = VIDEO_CONTENT.find(video => video.id === activeRole);
+  const embedUrl = currentVideo ? getEmbedUrl([currentVideo.videoUrl]) : null;
 
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
@@ -106,22 +111,38 @@ export default function Home() {
               <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                 {/* Front Side - Image/Placeholder */}
                 <div className="absolute inset-0 w-full h-full bg-gray-100 rounded-sm backface-hidden flex items-center justify-center overflow-hidden">
-                  <div className="text-center p-8">
-                    <div className="w-24 h-24 mx-auto mb-4 bg-gray-300 rounded-full flex items-center justify-center">
-                      <span className="text-gray-500 text-2xl">🎵</span>
+                  {currentVideo?.thumbnail ? (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={currentVideo.thumbnail}
+                        alt={currentVideo.title}
+                        fill
+                        className="object-cover"
+                      />
+                      {hoveredCard && (
+                        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity duration-300">
+                          <span className="text-white text-sm font-medium">Click to see video</span>
+                        </div>
+                      )}
                     </div>
-                    <h3 className="text-lg font-medium text-gray-700 mb-2">
-                      {ROLES.find(role => role.id === activeRole)?.label}
-                    </h3>
-                    <p className="text-sm text-gray-500 italic">
-                      Click to see video
-                    </p>
-                    {hoveredCard && (
-                      <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300">
-                        <span className="text-white text-sm font-medium">Click to flip</span>
+                  ) : (
+                    <div className="text-center p-8">
+                      <div className="w-24 h-24 mx-auto mb-4 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span className="text-gray-500 text-2xl">🎵</span>
                       </div>
-                    )}
-                  </div>
+                      <h3 className="text-lg font-medium text-gray-700 mb-2">
+                        {ROLES.find(role => role.id === activeRole)?.label}
+                      </h3>
+                      <p className="text-sm text-gray-500 italic">
+                        Click to see video
+                      </p>
+                      {hoveredCard && (
+                        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300">
+                          <span className="text-white text-sm font-medium">Click to flip</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Back Side - Video */}
@@ -135,28 +156,11 @@ export default function Home() {
                       
                       {/* Video Content */}
                       <div className="w-full h-full">
-                        {activeRole === "music-producer" && (
+                        {embedUrl && (
                           <iframe
-                            src={currentVideo.embedUrl}
+                            src={embedUrl}
                             className="w-full h-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            title={currentVideo.title}
-                          />
-                        )}
-                        {activeRole === "av-tech" && (
-                          <iframe
-                            src={currentVideo.embedUrl}
-                            className="w-full h-full"
-                            allow="autoplay; fullscreen; picture-in-picture"
-                            allowFullScreen
-                            title={currentVideo.title}
-                          />
-                        )}
-                        {activeRole === "live-sound" && (
-                          <iframe
-                            src={currentVideo.embedUrl}
-                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                             allowFullScreen
                             title={currentVideo.title}
                           />
