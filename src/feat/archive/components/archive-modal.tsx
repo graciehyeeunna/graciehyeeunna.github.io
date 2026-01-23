@@ -2,7 +2,7 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import { IArchiveItem } from "@/feat/archive/constants/realdata";
+import type { IArchiveItem } from "@/../data/archive/type";
 import { getEmbedUrl } from "@/feat/archive/utils/video-utils";
 
 /**

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { IArchiveItem } from "@/feat/archive/constants/realdata";
+import type { IArchiveItem } from "@/../data/archive/type";
 import {
   getPreviewEmbedUrl,
   getVideoThumbnail,

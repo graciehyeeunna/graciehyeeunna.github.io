@@ -1,10 +1,7 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import {
-  ARCHIVE_DATA,
-  IArchiveItem,
-} from "@/feat/archive/constants/realdata";
+import { ARCHIVE_DATA, type IArchiveItem } from "@/../data/archive/data";
 import { useMemo, useState } from "react";
 import ArchiveList from "@/feat/archive/components/archive-list";
 import ArchiveModal from "@/feat/archive/components/archive-modal";
