@@ -7,7 +7,7 @@ export type { IAboutMeItem } from "../type";
 export const ABOUT_ME_DATA: IAboutMeItem[] = [
   {
     id: "performance",
-    videoUrl: "https://vimeo.com/1157249297",
+    videoUrl: "https://vimeo.com/manage/videos/1159754124",
     title: "Performance & Stage Sound",
     description: [
       "I have engineered live performances across major concert halls and large rehearsal spaces at Berklee College of Music, including David Friend Recital Hall, Café 939, and the Berklee Performance Center. Through these experiences, I developed strong proficiency in digital mixing consoles, Dante-based audio networks, and live production workflows.",
@@ -17,7 +17,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "technical",
-    videoUrl: "https://www.youtube.com/watch?v=s0sWmK7SYnI",
+    videoUrl: "https://vimeo.com/1157249297",
     title: "Technical & Systems",
     description: [
       "I design, modify, and maintain audio equipment and technical systems across both studio and live environments. My work includes building passive speakers, ribbon microphones, and radio related devices from soldering to final implementation, and integrating custom built tools into recording workflows.",
@@ -27,7 +27,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "recorded",
-    videoUrl: "https://vimeo.com/1157084622",
+    videoUrl: "https://vimeo.com/manage/videos/1157084599",
     title: "Recorded Music & Sound",
     description: [
       "I have worked on a range of studio based projects, including album and single releases across multiple artists and genres. I maintain an ongoing collaborative relationship with singer-songwriter Chloe, contributing to her solo releases as well as projects with her band, Elephant in a Fridge. I am currently involved in the development of her upcoming full length album, contributing across production, recording, mixing, and visual content.",
