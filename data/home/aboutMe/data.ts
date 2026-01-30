@@ -17,7 +17,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "technical",
-    videoUrl: "https://vimeo.com/1157249297",
+    videoUrl: "https://vimeo.com/manage/videos/1159946411",
     title: "Technical & Systems",
     description: [
       "I design, modify, and maintain audio equipment and technical systems across both studio and live environments. My work includes building passive speakers, ribbon microphones, and radio related devices from soldering to final implementation, and integrating custom built tools into recording workflows.",
