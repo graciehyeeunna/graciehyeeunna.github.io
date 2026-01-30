@@ -27,7 +27,7 @@ export const ABOUT_ME_DATA: IAboutMeItem[] = [
   },
   {
     id: "recorded",
-    videoUrl: "https://vimeo.com/manage/videos/1157084599",
+    videoUrl: "https://vimeo.com/manage/videos/1160049391",
     title: "Recorded Music & Sound",
     description: [
       "I have worked on a range of studio based projects, including album and single releases across multiple artists and genres. I maintain an ongoing collaborative relationship with singer-songwriter Chloe, contributing to her solo releases as well as projects with her band, Elephant in a Fridge. I am currently involved in the development of her upcoming full length album, contributing across production, recording, mixing, and visual content.",
