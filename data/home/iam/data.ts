@@ -11,7 +11,7 @@ export const ROLE_DATA: IRoleData[] = [
     label: "Live Sound Engineer",
     title: "Upside Down Universe",
     videoUrl: "https://vimeo.com/1060116537",
-    thumbnail: "/images/home/iam/live-sound/UpsidedownuniverseNew.jpg",
+    thumbnail: "/images/home/iam/live-sound/UDU.jpg",
     description: "An interdisciplinary live production integrating original music, visual media, and immersive technology.\n\nI worked as the streaming engineer for this production, mixing orchestral and multimedia audio for the live broadcast from the BPC studio. I collaborated with the production and sound design teams to ensure that pre-produced tracks and background sound elements were accurately translated into the streaming mix.",
   },
   {
