@@ -28,6 +28,6 @@ export const ROLE_DATA: IRoleData[] = [
     title: "Moonchild — Floor Green",
     videoUrl: "https://www.youtube.com/watch?v=txEESiHXSy8",
     thumbnail: "/images/home/iam/music-producer/Under_Your_Thumb.jpg",
-    description: "A project by Floor Green, reinterpreting Moonchild through a contemporary sonic approach.\n\nI contributed to the production and recording process as an audio engineer, supporting the technical and sonic development of the track. Beyond this project, I have worked closely with singer-songwriter Chloe on her original releases, contributing to production and audio engineering across her solo and band projects.",
+    description: "Ella Young – Under Your Thumb (Single, January 31, 2026) \n\nI worked as the recording engineer during full-band studio sessions, managing mic placement, signal flow, and session workflow to achieve a clear, balanced, and dynamically controlled recording. The production emphasized tight ensemble performance and a refined sonic character suited for a contemporary single release.",
   },
 ];
