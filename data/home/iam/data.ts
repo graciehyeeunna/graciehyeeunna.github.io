@@ -25,7 +25,7 @@ export const ROLE_DATA: IRoleData[] = [
   {
     id: "music-producer",
     label: "Music Production & Engineering",
-    title: "Moonchild — Floor Green",
+    title: "Under your Thumb — Ella Young",
     videoUrl: "https://www.youtube.com/watch?v=txEESiHXSy8",
     thumbnail: "/images/home/iam/music-producer/Under_Your_Thumb.jpg",
     description: "Ella Young – Under Your Thumb (Single, January 31, 2026) \n\nI worked as the recording engineer during full-band studio sessions, managing mic placement, signal flow, and session workflow to achieve a clear, balanced, and dynamically controlled recording. The production emphasized tight ensemble performance and a refined sonic character suited for a contemporary single release.",
