@@ -72,7 +72,7 @@ export default function Home() {
                         src={currentRole.thumbnail}
                         alt={currentRole.title}
                         fill
-                        className="object-contain"
+                        className="object-cover"
                       />
                       {hoveredCard && (
                         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity duration-300">
