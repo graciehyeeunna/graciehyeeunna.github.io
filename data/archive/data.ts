@@ -1098,6 +1098,21 @@ export const ARCHIVE_DATA: IArchiveData = {
       categoryName: 'Studio Work',
       items: [
         {
+          id: 'rec_ella_young_Under_your_Thumb_album',
+          date: '2026-01-31',
+          venue: null,
+          room: null,
+          role: 'Recording Credit',
+          badge: null,
+          title: 'Ella Young – Under your Thumb [single album]',
+          description: '레코딩 참여',
+          links: [
+            'https://www.youtube.com/watch?v=txEESiHXSy8',
+          ],
+          notes: 'Epiphany Records',
+          rawText: 'Ella Young – How Can I Stay [single album], Epiphany Records, 레코딩 참여',
+        },
+        {
           id: 'rec_moonchild',
           date: '2025-03-07',
           venue: null,
