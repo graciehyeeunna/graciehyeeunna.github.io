@@ -16,7 +16,7 @@ export const ROLE_DATA: IRoleData[] = [
   },
   {
     id: "av-tech",
-    label: "A/V",
+    label: "A/V Systems Engineer",
     title: "Lady Gaga Ensemble — The Monster Ball",
     videoUrl: "https://vimeo.com/manage/videos/1156782343",
     thumbnail: "/images/home/iam/av-tech/ladygaga.jpg",
@@ -24,7 +24,7 @@ export const ROLE_DATA: IRoleData[] = [
   },
   {
     id: "music-producer",
-    label: "Music Production & Engineering",
+    label: "Production & Recording Engineer",
     title: "Under your Thumb — Ella Young",
     videoUrl: "https://www.youtube.com/watch?v=txEESiHXSy8",
     thumbnail: "/images/home/iam/music-producer/Under_Your_Thumb.jpg",
